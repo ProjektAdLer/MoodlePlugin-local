@@ -146,10 +146,13 @@ jobs:
           #moodle-plugin-ci coveralls-upload
           #cat /home/runner/work/MoodlePluginLocal/MoodlePluginLocal/moodle/local/adler/build/logs/coveralls-upload.json
           # cd moodle
-          composer require php-coveralls/php-coveralls
-          # cd local/adler
+          # composer require php-coveralls/php-coveralls
+          #
+          # php-coveralls has to be executed from a directory that is a git repository (branch detection)
+          cd moodle/local/adler
           # # workaround for https://github.com/php-coveralls/php-coveralls/issues/358
           # unset GITHUB_ACTIONS  
+          composer require php-coveralls/php-coveralls
           php vendor/bin/php-coveralls --coverage_clover=coverage.xml -v --json_path coveralls_upload.json --exclude-no-stmt
 
 #     There are no behat tests
