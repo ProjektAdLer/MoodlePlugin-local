@@ -133,27 +133,23 @@ jobs:
         if: ${{ always() }}
         run: |
           cd moodle
-          php -d pcov.enabled=1 -d pcov.directory=. vendor/bin/phpunit --coverage-text --configuration local/adler --testdox --coverage-clover ../coverage.xml
-          # moodle-plugin-ci phpunit --fail-on-warning --coverage-clover --testdox --coverage-pcov --coverage-text -vvv
+          php -d pcov.enabled=1 -d pcov.directory=. vendor/bin/phpunit --coverage-text --configuration local/adler --testdox --coverage-clover local/adler/coverage.xml
+          # restore tests are randomly causing segfaults when run with moodle-plugin-ci, but run totally fine when run with phpunit directly
+          # https://github.com/moodlehq/moodle-plugin-ci/issues/204
+          # moodle-plugin-ci phpunit --fail-on-warning --coverage-clover --coverage-text -vvv
 
       - name: Coveralls upload
         continue-on-error: true
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN  }}   
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         if: ${{ matrix.php == '8.1' && matrix.moodle-branch == 'MOODLE_401_STABLE' && matrix.database == 'mariadb' }}
         run: |
-          moodle-plugin-ci coveralls-upload
-          #cat /home/runner/work/MoodlePluginLocal/MoodlePluginLocal/moodle/local/adler/build/logs/coveralls-upload.json
-          # cd moodle
-          # composer require php-coveralls/php-coveralls
-          #
-          # php-coveralls has to be executed from a directory that is a git repository (branch detection)
-          #cd moodle/local/adler
-          # # workaround for https://github.com/php-coveralls/php-coveralls/issues/358
-          # unset GITHUB_ACTIONS  
-          #composer require php-coveralls/php-coveralls
-          #php vendor/bin/php-coveralls --coverage_clover=../../../coverage.xml -v --json_path coveralls_upload.json --exclude-no-stmt
-
+          cd moodle
+          composer require --dev php-coveralls/php-coveralls
+          cd local/adler
+          # workaround for https://github.com/php-coveralls/php-coveralls/issues/358
+          unset GITHUB_ACTIONS  
+          php ../../vendor/bin/php-coveralls --coverage_clover=coverage.xml -v --json_path coveralls_upload.json --exclude-no-stmt
 #     There are no behat tests
 #      - name: Behat features
 #        if: ${{ always() }}
