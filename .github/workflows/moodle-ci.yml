@@ -153,7 +153,7 @@ jobs:
           # # workaround for https://github.com/php-coveralls/php-coveralls/issues/358
           # unset GITHUB_ACTIONS  
           composer require php-coveralls/php-coveralls
-          php vendor/bin/php-coveralls --coverage_clover=coverage.xml -v --json_path coveralls_upload.json --exclude-no-stmt
+          php vendor/bin/php-coveralls --coverage_clover=../../../coverage.xml -v --json_path coveralls_upload.json --exclude-no-stmt
 
 #     There are no behat tests
 #      - name: Behat features
