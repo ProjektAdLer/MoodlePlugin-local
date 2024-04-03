@@ -132,7 +132,9 @@ jobs:
       - name: PHPUnit tests
         if: ${{ always() }}
         run: |
+          ls -lha
           moodle-plugin-ci phpunit --fail-on-warning --coverage-clover --testdox --coverage-pcov --coverage-text -vvv
+          ls -lha
 
       - name: Coveralls upload
         continue-on-error: true
