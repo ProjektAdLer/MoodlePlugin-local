@@ -147,6 +147,12 @@ jobs:
           ## workaround for https://github.com/php-coveralls/php-coveralls/issues/358
           #unset GITHUB_ACTIONS  
           #php ../../vendor/bin/php-coveralls --coverage_clover=coverage.xml -v --json_path coveralls_upload.json --exclude-no-stmt
+
+
+      - name: Close parallel build
+        uses: coverallsapp/github-action@v1
+        with:
+          parallel-finished: true
 #     There are no behat tests
 #      - name: Behat features
 #        if: ${{ always() }}
