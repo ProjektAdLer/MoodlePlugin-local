@@ -29,14 +29,14 @@ jobs:
           first_entry=true
           for i in $(cat plugin_compatibility.json | jq -c '.[]'); do
             moodle=$(echo "$i" | jq -r '.moodle')
-            for php in $(echo "$i" | jq -c '.PHP[]'); do
+            for php in $(echo "$i" | jq -r '.PHP[]'); do
               for database in pgsql mariadb; do
                 if [ "$first_entry" = true ]; then
                   first_entry=false
                 else
                   include_str="$include_str,"
                 fi
-                next_entry="{\"php\": $php, \"moodle-branch\": \"$moodle\", \"database\": \"$database\", \"experimental\": false}"
+                next_entry="{\"php\": \"$php\", \"moodle-branch\": \"$moodle\", \"database\": \"$database\", \"experimental\": false}"
                 include_str="$include_str$next_entry"
               done
             done
