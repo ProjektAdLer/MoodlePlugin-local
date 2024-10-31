@@ -43,6 +43,9 @@ jobs:
           done
           include_str="$include_str]"
           echo "include_list=$include_str" >> "$GITHUB_OUTPUT"
+
+      - name: Print include_list
+        run: echo "${{ steps.include_list.outputs.include_list }}"
   test:
     runs-on: ubuntu-22.04
 
