@@ -21,6 +21,7 @@ jobs:
       - name: Define matrix
         id: include_list
         run: |
+          ls -lha
           # Generates a json array with include entries for all possible combinations of PHP, Moodle branch and database
           include_str="["
           for i in $(cat plugin_compatibility.json | jq -c '.[]'); do
