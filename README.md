@@ -17,14 +17,7 @@
 ## Kompabilität
 Folgende Versionen werden unterstützt (mit mariadb und postresql getestet):
 
-| Moodle Branch           | PHP Version |
-|-------------------------|-------------|
-| MOODLE_404_STABLE       | 8.1         |
-| MOODLE_404_STABLE       | 8.2         |
-| MOODLE_404_STABLE       | 8.3         |
-| MOODLE_405_STABLE (LTS) | 8.1         |
-| MOODLE_405_STABLE (LTS) | 8.2         |
-| MOODLE_405_STABLE (LTS) | 8.3         |
+[siehe hier](_dependencies.json)
 
 
 
