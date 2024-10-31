@@ -18,6 +18,11 @@ jobs:
       include_list: ${{ steps.define-matrix.outputs.include_list }}
 
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          path: plugin
+
       - name: Define matrix
         id: include_list
         run: |
