@@ -16,7 +16,7 @@ jobs:
 
     outputs:
       include_list: ${{ steps.include_list.outputs.include_list }}
-      
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -24,22 +24,25 @@ jobs:
       - name: Define matrix
         id: include_list
         run: |
-          ls -lha
           # Generates a json array with include entries for all possible combinations of PHP, Moodle branch and database
           include_str="["
+          first_entry=true
           for i in $(cat plugin_compatibility.json | jq -c '.[]'); do
             moodle=$(echo "$i" | jq -r '.moodle')
             for php in $(echo "$i" | jq -c '.PHP[]'); do
               for database in pgsql mariadb; do
-                next_entry="{'php': '$php', 'moodle-branch': '$moodle', 'database': '$database', 'experimental': false}"
-                include_str="$include_str, $next_entry"
+                if [ "$first_entry" = true ]; then
+                  first_entry=false
+                else
+                  include_str="$include_str,"
+                fi
+                next_entry="{\"php\": \"$php\", \"moodle-branch\": \"$moodle\", \"database\": \"$database\", \"experimental\": false}"
+                include_str="$include_str$next_entry"
               done
             done
           done
           include_str="$include_str]"
-          echo "include_list=$include_str"
           echo "include_list=$include_str" >> "$GITHUB_OUTPUT"
-
   test:
     runs-on: ubuntu-22.04
 
