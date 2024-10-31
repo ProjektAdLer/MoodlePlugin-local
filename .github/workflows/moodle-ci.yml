@@ -36,7 +36,7 @@ jobs:
                 else
                   include_str="$include_str,"
                 fi
-                next_entry="{\"php\": \"$php\", \"moodle-branch\": \"$moodle\", \"database\": \"$database\", \"experimental\": false}"
+                next_entry="{\"php\": $php, \"moodle-branch\": \"$moodle\", \"database\": \"$database\", \"experimental\": false}"
                 include_str="$include_str$next_entry"
               done
             done
