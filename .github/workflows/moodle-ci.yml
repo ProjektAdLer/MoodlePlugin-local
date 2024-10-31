@@ -33,6 +33,7 @@ jobs:
             done
           done
           include_str="$include_str]"
+          echo 'include_list=$include_str'
           echo 'include_list=$include_str' >> "$GITHUB_OUTPUT"
 
   test:
