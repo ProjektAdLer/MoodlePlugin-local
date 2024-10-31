@@ -48,6 +48,7 @@ jobs:
         run: echo "${{ steps.include_list.outputs.include_list }}"
   test:
     runs-on: ubuntu-22.04
+    needs: define-matrix
 
     services:
       postgres:
