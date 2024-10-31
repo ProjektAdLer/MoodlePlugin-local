@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      include_list: ${{ steps.define-matrix.outputs.include_list }}
-
+      include_list: ${{ steps.include_list.outputs.include_list }}
+      
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
